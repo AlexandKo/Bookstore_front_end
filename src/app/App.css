@@ -1,0 +1,9 @@
+.app {
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 18% 82%;
+  grid-gap: 10px;
+  grid-template-areas:
+"app-header app-header"
+"app-nav app-content";
+}

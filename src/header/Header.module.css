@@ -1,0 +1,11 @@
+.appHeader {
+    grid-area: app-header;
+    display: grid;
+    grid-template-columns: 100%;
+    background-color: #081d47;
+    color: #f0f8ff;
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
