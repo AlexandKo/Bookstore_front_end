@@ -2,10 +2,6 @@ import React, {useState} from "react";
 import Button from 'react-bootstrap/Button';
 import Form from "react-bootstrap/Form";
 import bookStyle from './Book.module.css';
-import BookContainer from "./book_container";
-import {Redirect} from "react-router";
-import {ModalBody, ModalDialog, ModalFooter, ModalTitle} from "react-bootstrap";
-import ModalHeader from "react-bootstrap/ModalHeader";
 
 const AddBook = (props) => {
     const [bookState, setState] = useState({
