@@ -2,7 +2,10 @@ import React, {useState} from "react";
 import Button from 'react-bootstrap/Button';
 import Form from "react-bootstrap/Form";
 import bookStyle from './Book.module.css';
+import BookContainer from "./book_container";
 import {Redirect} from "react-router";
+import {ModalBody, ModalDialog, ModalFooter, ModalTitle} from "react-bootstrap";
+import ModalHeader from "react-bootstrap/ModalHeader";
 
 const AddBook = (props) => {
     const [bookState, setState] = useState({
@@ -27,21 +30,22 @@ const AddBook = (props) => {
         }));
     };
 
-    const handleSubmit = (evt) => {
-        evt.preventDefault();
+    let addButtonClick = false;
+
+    const handleSubmit = () => {
         let bookData = {
             title: bookState.title,
             price: bookState.price
         }
-        props.saveStatus(bookData);
-
+        addButtonClick = true
+        props.bookSaveStatus(bookData);
     }
 
-    if (!(props.isWasSaved)) {
+    if (!addButtonClick) {
         return (
             <div>
                 <div className={bookStyle.book}>
-                    <Form onSubmit={handleSubmit}>
+                    <Form>
                         <Form.Group size="lg" controlId="validation_Book">
                             <Form.Label>Book title</Form.Label>
                             <Form.Control
@@ -51,10 +55,12 @@ const AddBook = (props) => {
                                 value={bookState.title}
                                 name={"title"}
                                 autoComplete="off"
-                                isInvalid={Boolean(props.addBookError)}
+                                isInvalid={props.addBookError}
+                                isValid={props.isWasSaved}
                                 onChange={handleInputChange}
                             />
                             <Form.Control.Feedback type="invalid">Book exists</Form.Control.Feedback>
+                            <Form.Control.Feedback type="valid">Book saved</Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group size="lg">
                             <Form.Label>Book price</Form.Label>
@@ -64,11 +70,12 @@ const AddBook = (props) => {
                                 value={bookState.price}
                                 name={"price"}
                                 autoComplete="off"
-                                isInvalid={Boolean(props.addBookError)}
+                                isInvalid={props.addBookError}
+                                isValid={props.isWasSaved}
                                 onChange={handleInputChange}
                             />
                         </Form.Group>
-                        <Button block size="lg" type={"submit"} disabled={!validateForm()}>
+                        <Button block size="lg" onClick={handleSubmit} disabled={!validateForm()}>
                             Add Book
                         </Button>
                     </Form>
@@ -76,10 +83,8 @@ const AddBook = (props) => {
             </div>
         );
     } else {
-        return (
-            <div>
+        return (<div>
                 {cleanState()}
-                <Redirect to={"/showBooks"}/>
             </div>
         )
     }

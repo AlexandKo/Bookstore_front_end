@@ -1,11 +1,16 @@
-import {connect} from "react-redux";
 import {Table} from "react-bootstrap";
-import {resetError} from "./book_reducer";
 import Paging from "../util/Paging";
+import {useEffect} from "react";
 
 const Book = (props) => {
     const data = props.bookList;
-    props.resetError();
+
+    useEffect(() => {
+        props.loadBooks(props.currentPage);
+        props.resetError();
+        props.resetAddBookError();
+    }, [])
+
     return (
         <div>
             <div className="container  table-responsive">
@@ -30,15 +35,8 @@ const Book = (props) => {
                 <Paging/>
             </div>
         </div>
-    )
+    );
 }
 
-let mapStateToProps = (state) => {
-    const bookList = state.load.load;
-    return {
-        bookList: bookList
-    }
-}
-
-export default connect(mapStateToProps, {resetError})(Book);
+export default Book;
 

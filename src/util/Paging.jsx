@@ -1,6 +1,7 @@
 import {Pagination} from "react-bootstrap";
 import {connect} from "react-redux";
 import {loadBooks} from "../app/app_reducer";
+import {setCurrentPage} from "../book/book_reducer";
 
 const Paging = (props) => {
     let items = [];
@@ -12,7 +13,8 @@ const Paging = (props) => {
         );
     }
     let paginationClicked = (event) => {
-        props.loadBooks(event.target.id)
+        props.setCurrentPage(parseInt(event.target.id));
+        props.loadBooks(event.target.id);
     }
     return (
         <div>
@@ -28,4 +30,4 @@ let mapStateToProps = (state) => {
         pageCount: pageCount
     }
 }
-export default connect(mapStateToProps, {loadBooks})(Paging);
+export default connect(mapStateToProps, {loadBooks, setCurrentPage})(Paging);

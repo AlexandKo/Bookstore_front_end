@@ -4,8 +4,9 @@ import Header from "../header/Header";
 import Navbar from "../navbar/Navbar";
 import {Redirect, Route, Switch} from "react-router";
 import {Component} from "react";
-import Book from "../book/Book";
+import AddBookContainer from "../book/addBook_container";
 import BookContainer from "../book/book_container";
+import {Spinner} from "react-bootstrap";
 
 class App extends Component {
     componentDidMount() {
@@ -20,17 +21,18 @@ class App extends Component {
                         <Header/>
                         <Navbar/>
                         <Switch>
-                            <Route exact path='/showBooks' component={Book}/>
-                            <Route exact path='/addBooks' component={BookContainer}/>
+                            <Route exact path='/showBooks' component={BookContainer}/>
+                            <Route exact path='/addBooks' component={AddBookContainer}/>
                         </Switch>
-                        <Redirect to={"/showBooks"}/>
+                        <Redirect to={'/showBooks'}/>
                     </div>
                 </BrowserRouter>
             );
         } else {
             return (
-                <div>
-                    Loading....
+                <div className={"loader"}> Wait connection.......
+                        <Spinner animation="border" role="status"/>
+
                 </div>
             )
         }
